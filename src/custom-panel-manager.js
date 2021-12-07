@@ -68,7 +68,7 @@ class CustomPanelManager {
 
         let newMenuItem = document.createElement("div");
         newMenuItem.className = "drawer-item active noselect custom-ext-panel-menu-item";
-        newMenuItem.addEventListener("click", () => callback(this, title, iconSrc));
+        newMenuItem.addEventListener("click", () => callback(title, iconSrc));
         let newMenuItemText = newMenuItem.appendChild(document.createElement("div"));
         if (iconSrc !== "") {
             let icon = newMenuItemText.appendChild(document.createElement("img"));

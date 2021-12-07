@@ -3,12 +3,18 @@ class Example {
         CustomPanelManager.attach()
             .then(() => this.addMenuItems())
     }
+
     addMenuItems() {
-        window.PanelManager.addMenuItem("Custom Item 1", "Settings", this.openItemOne, "after", "/images/cooking/potato.png");
-        window.PanelManager.addMenuItem("Custom Item 2", "Settings", this.openItemTwo, "after", "/images/cooking/banana.png");
+        // Bind vs. arrow notation, either is fine
+        window.PanelManager.addMenuItem(
+            "Custom Item 1", "Settings", (title, icon) => this.openItemOne(title, icon), "before", "/images/cooking/potato.png"
+        );
+        window.PanelManager.addMenuItem(
+            "Custom Item 2", "Settings", this.openItemTwo.bind(this), "after", "/images/cooking/banana.png"
+        );
     }
 
-    openItemOne(self, title, icon) {
+    openItemOne(title, icon) {
         window.PanelManager.clearPlayArea();
         let playArea = window.PanelManager.createPlayArea(title, icon);
 
@@ -18,31 +24,33 @@ class Example {
         panel.append("Hello!")
     }
 
-    openItemTwo(self, title, icon) {
+    openItemTwo(title, icon) {
         window.PanelManager.clearPlayArea();
         let playArea = window.PanelManager.createPlayArea(title, icon);
         playArea.append("Bonjour!")
     }
 }
 
+// Example of multiple classes (potentially from separate extensions) waiting for the panel manager to attach
 class Example2 {
     constructor() {
         CustomPanelManager.attach()
             .then(() => this.addMenuItems())
     }
+
     addMenuItems() {
-        window.PanelManager.addMenuItem("Custom Item 3", "Settings", this.openItemThree, "after", "/images/cooking/pumpkin.png");
-        window.PanelManager.addMenuItem("Custom Item 4", "Settings", this.openItemFour, "after");
+        window.PanelManager.addMenuItem("Custom Item 3", "Quests", (title, icon) => this.openItemThree(title, icon), "before", "/images/cooking/pumpkin.png");
+        window.PanelManager.addMenuItem("Custom Item 4", "Quests", this.openItemFour.bind(this), "after");
     }
 
-    openItemThree(self, title, icon) {
+    openItemThree(title, icon) {
         console.log(self);
         window.PanelManager.clearPlayArea();
         let playArea = window.PanelManager.createPlayArea(title, icon);
         playArea.append("Wow!")
     }
 
-    openItemFour(self, title, icon) {
+    openItemFour(title, icon) {
         console.log(self);
         window.PanelManager.clearPlayArea();
         let playArea = window.PanelManager.createPlayArea(title, icon);
