@@ -1,14 +1,20 @@
 class CustomPanelSettingsUI {
-    static createSettingsPanel() {
-        let panel = playArea.appendChild(document.createElement("div"));
-        panel.className = "settings-panel enraged-robot-settings";
+    static createSettingsPanel(customClass = null) {
+        let panel = document.createElement("div");
+        panel.className = "settings-panel";
+        if (customClass !== null && customClass instanceof String) {
+            panel.className += ` ${customClass}`;
+        }
 
         return panel;
     }
 
-    static createSection() {
+    static createSection(customClass = null) {
         let section = document.createElement("div");
         section.style.marginBottom = "3em";
+        if (customClass !== null && customClass instanceof String) {
+            section.className = customClass;
+        }
 
         return section;
     }
