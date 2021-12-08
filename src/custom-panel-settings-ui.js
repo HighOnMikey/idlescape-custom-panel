@@ -1,4 +1,11 @@
 class CustomPanelSettingsUI {
+    static createSettingsPanel() {
+        let panel = playArea.appendChild(document.createElement("div"));
+        panel.className = "settings-panel enraged-robot-settings";
+
+        return panel;
+    }
+
     static createSection() {
         let section = document.createElement("div");
         section.style.marginBottom = "3em";
