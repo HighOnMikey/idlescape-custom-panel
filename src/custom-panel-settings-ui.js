@@ -15,7 +15,7 @@ class CustomPanelSettingsUI {
         return row;
     }
 
-    static createSettingsCheckbox(description, checked, onchangeCallback = () => {}, name = null, value = null) {
+    static createSettingsCheckbox(description, checked, onchangeCallback = (checked) => {}, name = null, value = null) {
         let row = document.createElement("div");
         row.className = "settings-row";
         let label = row.appendChild(document.createElement("label"));
@@ -42,7 +42,7 @@ class CustomPanelSettingsUI {
         return row;
     }
 
-    static createSettingsColorPicker(description, color, defaultColor, saveCallback = () => {}) {
+    static createSettingsColorPicker(description, color, defaultColor, saveCallback = (color) => {}) {
         let row = document.createElement("div");
         row.className = "settings-row";
 
@@ -85,6 +85,51 @@ class CustomPanelSettingsUI {
         label.style.marginBottom = "0px";
         label.style.marginTop = "3px";
         label.append(`${description}`);
+
+        return row;
+    }
+
+    static createSettingsKeybind(description, key, defaultKey, saveCallback = (key) => {}) {
+        let row = document.createElement("div");
+        row.className = "settings-row";
+        let textBox = row.appendChild(document.createElement("input"));
+        textBox.type = "text";
+        textBox.readOnly = true;
+        textBox.className = "settings-textbox";
+        textBox.style.width = "140px";
+        textBox.value = `${description}: ${key}`;
+        textBox.data = key;
+        textBox.onkeydown = (e) => {
+            textBox.value = `${description}: ${e.key}`;
+            textBox.data = e.key;
+        };
+        let save = row.appendChild(document.createElement("div"));
+        save.className = "settings-button";
+        save.style.textAlign = "center";
+        save.onclick = () => saveCallback(textBox.data);
+        save.append("Save");
+
+        let reset = row.appendChild(document.createElement("div"));
+        reset.className = "settings-button";
+        reset.style.backgroundColor = "#8B0000";
+        reset.style.textAlign = "center";
+        reset.onclick = () => {
+            textBox.value = `${description}: ${key}`;
+            textBox.data = key;
+            saveCallback(textBox.data);
+        };
+        reset.append("Reset");
+
+        let defaultButton = row.appendChild(document.createElement("div"));
+        defaultButton.className = "settings-button";
+        defaultButton.style.backgroundColor = "#8B0000";
+        defaultButton.style.textAlign = "center";
+        defaultButton.onclick = () => {
+            textBox.value = `${description}: ${defaultKey}`;
+            textBox.data = defaultKey;
+            saveCallback(textBox.data);
+        };
+        defaultButton.append("Default");
 
         return row;
     }
