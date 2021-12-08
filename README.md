@@ -23,3 +23,40 @@ A custom panel creator for Idlescape extensions.
        }
    }
    ```
+   
+# Settings UI Elements
+There are three UI elements that you can use which utilize callbacks to pass data around. These are primarily used for extension settings
+pages.
+
+## Usage
+1. Require the library in your user script
+   ```javascript
+   // ==UserScript==
+   // ...
+   // @require https://raw.githubusercontent.com/HighOnMikey/idlescape-custom-panel/main/src/custom-panel-settings-ui.js
+   // ...
+   ```
+2. Add UI elements to panel
+   ```javascript
+   class Example {
+       openYourCustomMenuItem(title, icon) {
+           window.PanelManager.clearPlayArea();
+           let playArea = window.PanelManager.createPlayArea(title, icon);
+           let panel = playArea.appendChild(CustomPanelSettingsUI.createSettingsPanel());
+   
+           let exampleSection = panel.appendChild(CustomPanelSettingsUI.createSection());
+           exampleSection.append(
+               CustomPanelSettingsUI.createSettingsCheckbox(description, true, saveCallback = (checked) => {}),
+               CustomPanelSettingsUI.createSettingsColorPicker(description, color, defaultColor, saveCallback = (color) => {}),
+               CustomPanelSettingsUI.createSettingsKeybind(description, key, defaultKey, saveCallback = (key) => {})
+           );
+   
+           let otherSection = panel.appendChild(CustomPanelSettingsUI.createSection());
+           exampleSection.append(
+               CustomPanelSettingsUI.createSettingsCheckbox(description, true, saveCallback = (checked) => {}),
+               CustomPanelSettingsUI.createSettingsColorPicker(description, color, defaultColor, saveCallback = (color) => {}),
+               CustomPanelSettingsUI.createSettingsKeybind(description, key, defaultKey, saveCallback = (key) => {})
+           );
+       }
+   }
+   ```
