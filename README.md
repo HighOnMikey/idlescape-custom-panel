@@ -29,6 +29,8 @@ There are three UI elements that you can use which utilize callbacks to pass dat
 pages.
 
 ## Usage
+For a full example of the UI element use, [see here](https://github.com/HighOnMikey/idlescape-enragedrobot/blob/main/src/extensions/ui/settings.js).
+
 1. Require the library in your user script
    ```javascript
    // ==UserScript==
