@@ -12,14 +12,19 @@ A custom panel creator for Idlescape extensions.
 2. Define a new panel and menu item
    ```javascript
    class Example {
+       constructor() {
+           CustomPanelManager.attach()
+               .then(() => this.addMenuItems());
+       }
+
        addMenuItems() {
            window.PanelManager.addMenuItem("Custom Item 1", "Settings", this.openYourCustomMenuItem, "after", "/images/cooking/potato.png");
        }
-   
+
        openYourCustomMenuItem(title, icon) {
             window.PanelManager.clearPlayArea();
             let playArea = window.PanelManager.createPlayArea(title, icon);
-            playArea.append("All of your content can be appended here however you want")
+            playArea.append("All of your content can be appended here however you want");
        }
    }
    ```
@@ -41,6 +46,11 @@ For a full example of the UI element use, [see here](https://github.com/HighOnMi
 2. Add UI elements to panel
    ```javascript
    class Example {
+       constructor() {
+           CustomPanelManager.attach()
+               .then(() => this.addMenuItems());
+       }
+
        openYourCustomMenuItem(title, icon) {
            window.PanelManager.clearPlayArea();
            let playArea = window.PanelManager.createPlayArea(title, icon);
@@ -52,7 +62,7 @@ For a full example of the UI element use, [see here](https://github.com/HighOnMi
                CustomPanelSettingsUI.createSettingsColorPicker(description, color, defaultColor, saveCallback = (color) => {}),
                CustomPanelSettingsUI.createSettingsKeybind(description, key, defaultKey, saveCallback = (key) => {})
            );
-   
+
            let otherSection = panel.appendChild(CustomPanelSettingsUI.createSection());
            exampleSection.append(
                CustomPanelSettingsUI.createSettingsCheckbox(description, true, saveCallback = (checked) => {}),
